@@ -12,7 +12,7 @@
 * II. [Architecture](#II.Architecture)
 * III. [How It Works](#III.HowItWorks)
 * IV. [Usage](#iv-usage)
-* V. [Demo](#V.Demo)
+* V. [Demo](#v-demo)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
