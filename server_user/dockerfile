@@ -1,0 +1,27 @@
+# Use Python 3.11.4 image based on Debian Bullseye in its slim variant as the base image
+FROM python:3.11.4-slim-bullseye
+
+
+ENV PYTHONBUFFERED=1
+
+
+ENV PORT 8000
+
+
+WORKDIR /app/server_user
+
+
+COPY . /app/server_user/
+
+
+RUN pip install --upgrade pip
+
+
+RUN pip install -r requirements.txt
+
+
+EXPOSE ${PORT}
+
+
+CMD gunicorn server_user.wsgi:application --bind 0.0.0.0:"8000"
+
