@@ -12,18 +12,9 @@
 * II. [Architecture](#II.Architecture)
 * III. [How It Works](#III.HowItWorks)
 * IV. [Usage](#IV.Usage)
-	* 4.1 [Prepare infrastructure](#Prepareinfrastructure)
-	* 4.2 [Prepare MySQL data](#PrepareMySQLdata)
-	* 4.3 [Prepare Medallion Architecture](#PrepareMedallionArchitecture)
-	* 4.4 [Prepare dbt-trino](#Preparedbt-trino)
-	* 4.5 [Transform MySQL data To DataLake (Minio)](#TransformMySQLdataToDataLakeMinio)
-	* 4.6 [Build Data Warehouse (GCP)](#BuildDataWarehouseGCP)
-	* 4.7 [Build Data Lakehouse (Dremio)](#BuildDataLakehouseDremio)
-	* 4.8 [Connect S3 and GCP in DataLakehouse](#ConnectS3andGCPinDataLakehouse)
-		* 4.8.1 [Connect S3](#ConnectS3)
-		* 4.8.2 [Connect GCP](#ConnectGCP)
-	* 4.9 [Load Data from Data-Lake to Data-Warehouse](#LoadDatafromData-LaketoData-Warehouse)
-* V. [Visualization](#V.Visualization)
+	updating
+* V. [Demo]
+	updateing
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -50,6 +41,7 @@ Before proceeding, ensure you have the following prerequisites in place:
 - Basic knowledge of Python programming.
 - Familiarity with data streaming concepts.
 - Understanding of cloud-based infrastructure (optional).
+- Other libraries and tools as specified in the `requirements.txt` file.
 
 ###  1.4 <a name='Dependencies'></a>Dependencies
 The project relies on the following dependencies:
@@ -72,11 +64,35 @@ The system can ingest data from various sources, including:
 <img src="./system_architecture.png"/> 
 <br />
 
+The system architecture is illustrated in the provided diagram. Key components include:
+- **Data Sources:** Generate real-time data streams.
+- **Kafka:** A distributed streaming platform for ingesting and processing data.
+  - Includes components like **Zoomkeeper** and **Control Center** for monitoring and managing the Kafka environment.
+  - Utilizes a **Schema Registry** to manage schemas for data consistency.
+- **Django:** A web framework for building the user interface and handling API requests.
+  - Acts as a Kafka consumer that receives data for real-time model training and results delivery to the client (HTML, CSS, JS).
+- **Spark:** A powerful big data processing engine for analyzing and transforming data.
+  - Processes data from Kafka for big data analysis and stores results in **Cassandra**.
+- **Cassandra:** A NoSQL database for storing and querying large datasets.
+- **Docker:** A containerization platform for packaging and deploying applications.
+
 ## <a name='III.HowItWorks'></a>III. How It Works
 
-1. **Data Ingestion:** Data sources generate real-time data and send it to Kafka.
-2. **Data Processing:** Kafka distributes the data to Spark for processing. Spark applies transformations and analysis techniques to extract valuable insights.
-3. **Data Storage:** Processed data is stored in Cassandra for future reference and analysis.
-4. **Visualization:** Django serves as the frontend, providing a user interface to visualize and interact with the processed data.
+1. **Data Ingestion:** 
+   - Data is sourced from APIs (e.g., randomuser.me) and sent to Kafka for real-time processing.
+  
+2. **Data Processing:** 
+   - Kafka distributes the data to two paths:
+     - **Path 1:** Data is sent to Spark for big data processing. Spark applies transformations and analysis techniques, and the results are stored in Cassandra.
+     - **Path 2:** The Django server acts as a Kafka consumer, receiving data from Kafka. It trains a model in real-time using this data and also retrieves data from Cassandra to enhance the training process.
+
+3. **Model Training:**
+   - The trained model results are stored as a pickle file for future use by the Django server, allowing for quick predictions and responses.
+
+4. **Data Storage:** 
+   - Processed data and model outputs are stored in Cassandra for future reference and analysis.
+
+5. **Visualization:** 
+   - Django serves as the frontend, providing a user interface to visualize and interact with the processed data and model predictions.
 
 ## <a name='IV.Usage'></a>IV. Usage
