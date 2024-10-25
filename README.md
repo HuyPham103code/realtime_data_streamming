@@ -12,8 +12,7 @@
 * II. [Architecture](#II.Architecture)
 * III. [How It Works](#III.HowItWorks)
 * IV. [Usage](#IV.Usage)
-	updating
-* V. [Demo]
+* V. [Demo](#V.Demo)
 	updateing
 
 <!-- vscode-markdown-toc-config
@@ -96,3 +95,72 @@ The system architecture is illustrated in the provided diagram. Key components i
    - Django serves as the frontend, providing a user interface to visualize and interact with the processed data and model predictions.
 
 ## <a name='IV.Usage'></a>IV. Usage
+### Step-by-Step Setup Guide
+
+1. **Install Visual Studio Code**  
+   Download and install Visual Studio Code from [here](https://code.visualstudio.com/download).
+
+2. **Install Python 3**  
+   Download and install Python 3 from [here](https://www.python.org/downloads/).
+
+3. **Install Docker**  
+   - Download Docker Desktop from [here](https://www.docker.com/products/docker-desktop).
+   - Install Docker Engine by following the instructions [here](https://docs.docker.com/engine/install/).
+
+4. **Install Git**  
+   Download and install Git from [here](https://github.com/git-guides/install-git).
+
+5. **Clone the Repository**
+   - Open your terminal and clone the project repository:
+     ```bash
+     git clone https://github.com/HuyPham103code/realtime_data_streamming.git
+     ```
+   - Navigate into the project directory:
+     ```bash
+     cd realtime_data_streamming
+     ```
+
+6. **Set Up the Virtual Environment**
+   - Create a virtual environment:
+     ```bash
+     py -m venv venv
+     ```
+
+7. **Open the Project in Visual Studio Code**
+   - Open the `realtime_data_streamming` folder in Visual Studio Code.
+   - Activate the virtual environment:
+     ```bash
+     .\venv\Scripts\activate
+     ```
+
+8. **Install Extensions and Packages**
+   - Install the **Live Server** extension in Visual Studio Code for serving static files.
+   - Install the necessary Python packages:
+     ```bash
+     pip install cassandra-driver pandas
+     ```
+
+9. **Run Docker Containers**
+   - Start Docker containers:
+     ```bash
+     docker compose up -d
+     ```
+   - To stop the Docker containers, use:
+     ```bash
+     docker compose down
+     ```
+
+10. **Connect to Cassandra**
+    - Access the Cassandra shell using:
+      ```bash
+      docker exec -it cassandra cqlsh -u cassandra -p cassandra localhost 9042
+      ```
+
+11. **Verify Data in Cassandra**
+    - Run the following query to confirm data ingestion in Cassandra:
+      ```cql
+      SELECT * FROM spark_streams.created_users;
+      ```
+
+  
+
