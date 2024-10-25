@@ -13,7 +13,6 @@
 * III. [How It Works](#III.HowItWorks)
 * IV. [Usage](#iv-usage)
 * V. [Demo](#V.Demo)
-	updateing
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -162,5 +161,6 @@ The system architecture is illustrated in the provided diagram. Key components i
       SELECT * FROM spark_streams.created_users;
       ```
 
-  
+## V. Demo
+[Click here to watch the demo video](video_demo.mp4) 
 
